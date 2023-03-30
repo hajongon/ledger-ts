@@ -10,7 +10,17 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
   ],
-  overrides: [],
+  overrides: [
+    {
+      files: "*.tsx",
+      options: {
+        parserOptions: {
+          jsx: "react",
+          useJSXTextNode: true,
+        },
+      },
+    },
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",

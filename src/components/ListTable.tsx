@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   TableContainer,
   TableHeader,
@@ -6,8 +7,9 @@ import {
   TableR,
   TableD,
 } from "./styles/StyledTable";
+import PaymentInfoTypes from "./types/PaymentInfoTypes";
 
-const ListTable = () => {
+const ListTable: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
   return (
     <TableContainer>
       <TableHeader>
@@ -28,9 +30,33 @@ const ListTable = () => {
           <TableD>GS25</TableD>
           <TableD>2000원</TableD>
         </TableR>
+        {
+          paymentInfo.map(el => {
+            return (
+              <TableR key={el.id}>
+                <TableD>{el.date}</TableD>
+                <TableD>{el.name}</TableD>
+                <TableD>{el.amount}</TableD>
+              </TableR>
+            )
+          })
+        }
       </TableBody>
     </TableContainer>
   );
 };
+
+ListTable.propTypes = {
+  paymentInfo: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+  setPaymentInfo: PropTypes.func.isRequired,
+}
+
 
 export default ListTable;
