@@ -1,18 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { StyledContainer } from "./styles/StyledContainer";
 import PaymentForm from "./PaymentForm";
 import PaymentList from "./PaymentList";
-
-const Container = () => {
-    const [paymentInfo, setPaymentInfo] = useState([
-        {
-            id: '1',
-            name: "",
-            amount: 0,
-            date: "",
-        },
-    ]);
+import PaymentInfoTypes from "./types/PaymentInfoTypes";
+const Container: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
 
     return (
         <StyledContainer>

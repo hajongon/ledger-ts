@@ -10,6 +10,13 @@ import {
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
 
 const ListTable: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
+
+  const paymentDeleteHandler = (id: string) => {
+    const filtered = paymentInfo.filter(el => el.id !== id);
+    setPaymentInfo(filtered);
+    localStorage.setItem("paymentInfo", JSON.stringify(filtered));
+  }
+
   return (
     <TableContainer>
       <TableHeader>
@@ -20,23 +27,17 @@ const ListTable: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) 
         </TableR>
       </TableHeader>
       <TableBody>
-        <TableR>
-          <TableD>2023/3/3</TableD>
-          <TableD>메가커피</TableD>
-          <TableD>2000원</TableD>
-        </TableR>
-        <TableR>
-          <TableD>2023/3/3</TableD>
-          <TableD>GS25</TableD>
-          <TableD>2000원</TableD>
-        </TableR>
         {
-          paymentInfo.map(el => {
+          // initial value를 가리기 위해 filtering
+          paymentInfo.filter(el => el.id !== '1').map(el => {
             return (
               <TableR key={el.id}>
                 <TableD>{el.date}</TableD>
                 <TableD>{el.name}</TableD>
                 <TableD>{el.amount}</TableD>
+                <TableD>
+                  <button onClick={() => { paymentDeleteHandler(el.id) }}>delete</button>
+                </TableD>
               </TableR>
             )
           })
@@ -45,6 +46,8 @@ const ListTable: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) 
     </TableContainer>
   );
 };
+
+// propTypes 블로깅
 
 ListTable.propTypes = {
   paymentInfo: PropTypes.arrayOf(

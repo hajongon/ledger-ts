@@ -20,9 +20,16 @@ const PaymentForm: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }
     const enteredName = nameRef.current!.value;
     const enteredAmount = amountRef.current!.value;
     const selectedDate = dateRef.current!.value;
+    if (!enteredName || !enteredAmount || !selectedDate) {
+      alert('지출 관련 내용을 정확히 입력하세요.');
+      return;
+    }
     const copied = [...paymentInfo];
-    copied.push({ id: id, name: enteredName, amount: +enteredAmount, date: selectedDate });
+    copied.push({ id, name: enteredName, amount: +enteredAmount, date: selectedDate });
     setPaymentInfo(copied);
+    // uuid 초기화
+    setId(uuidv4());
+    localStorage.setItem("paymentInfo", JSON.stringify(copied));
   };
 
   return (
