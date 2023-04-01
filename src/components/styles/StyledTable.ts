@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
-export const TableContainer = styled.table``;
-
 export const TableHeader = styled.thead`
   background-color: transparent;
-
   font-size: 14px;
 `;
 

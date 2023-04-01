@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import EntireList from "./EntireList";
 import ListContainer from "./ListContainer";
+import Navbar from "./Navbar";
 
 const App = () => {
 
@@ -27,10 +28,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Container paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />} />
-        <Route path="/list" element={<ListContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />} />
-      </Routes>
+      <div className="app">
+        <Navbar />
+        <Routes>
+
+          <Route path="/" element={<Container paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />} />
+          <Route path="/list" element={<ListContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };
