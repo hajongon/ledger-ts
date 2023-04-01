@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from 'uuid';
 
 import { StyledInputContainer, StyledSubmitButton } from "./styles/StyledInputContainer";
-import { StyledPaymentForm } from "./styles/StyledPaymentForm";
+import { StyledForm } from "./styles/StyledForm";
 import { PaymentInput } from "./styles/StyledInputContainer";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
 
@@ -33,7 +33,7 @@ const PaymentForm: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }
   };
 
   return (
-    <StyledPaymentForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <StyledInputContainer>
         <PaymentInput type="text" placeholder="결제 내역" ref={nameRef} />
         <PaymentInput
@@ -44,7 +44,7 @@ const PaymentForm: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }
         <PaymentInput type="date" placeholder="결제 날짜" ref={dateRef} />
         <StyledSubmitButton onClick={handleSubmit}>submit</StyledSubmitButton>
       </StyledInputContainer>
-    </StyledPaymentForm>
+    </StyledForm>
   );
 };
 

@@ -1,9 +1,9 @@
-import { StyledListContainer } from "./styles/StyledListContainer";
+import { StyledContainer } from "./styles/StyledContainer";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
 import FilteredTypes from "./types/FilteredTypes";
 import { useState, useEffect } from "react";
 
-import EntireList from "./EntireList";
+import SearchList from "./SearchList";
 import SearchForm from "./SearchForm";
 
 const ListContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
@@ -16,18 +16,18 @@ const ListContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo
   }, [paymentInfo]);
 
   return (
-    <StyledListContainer>
+    <StyledContainer>
       <SearchForm
         filteredPayments={filteredPayments}
         setFilteredPayments={setFilteredPayments}
         paymentInfo={paymentInfo}
         setPaymentInfo={setPaymentInfo}
       />
-      <EntireList
+      <SearchList
         filteredPayments={filteredPayments}
         setFilteredPayments={setFilteredPayments}
       />
-    </StyledListContainer>
+    </StyledContainer>
   );
 };
 

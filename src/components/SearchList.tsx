@@ -1,16 +1,16 @@
-import { StyledEntireList } from "./styles/StyledEntireList";
+import { StyledPaymentList } from "./styles/StyledPaymentList";
 
 import FilteredTypes from "./types/FilteredTypes";
 import TableContainer from "./TableContainer";
 import FilteredPaymentsTable from "./FilteredPaymentsTable";
 
-const EntireList: React.FC<FilteredTypes> = ({ filteredPayments, setFilteredPayments }) => {
+const SearchList: React.FC<FilteredTypes> = ({ filteredPayments, setFilteredPayments }) => {
 
 
   return (
-    <StyledEntireList>
+    <StyledPaymentList>
       <FilteredPaymentsTable filteredPayments={filteredPayments} setFilteredPayments={setFilteredPayments} />
-    </StyledEntireList>
+    </StyledPaymentList>
   )
 }
-export default EntireList;
+export default SearchList;

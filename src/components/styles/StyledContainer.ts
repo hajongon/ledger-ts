@@ -10,5 +10,4 @@ export const StyledContainer = styled.div`
   box-sizing: border-box;
   border: 1px solid black;
   padding: 1rem;
-  
 `;

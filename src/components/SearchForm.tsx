@@ -1,7 +1,7 @@
-import { StyledSearchForm } from "./styles/StyledSearchForm";
+import { StyledForm } from "./styles/StyledForm";
 import React, { FormEvent, useState, useRef } from "react";
 
-// 여기서는 네개를 받기 때문에 타입 정의 새로
+// 여기서는 네개를 받기 때문에 타입 정의 새로 해야 함
 type EntireTypes = {
   paymentInfo: { id: string, name: string, amount: number, date: string }[],
   setPaymentInfo: React.Dispatch<
@@ -43,7 +43,7 @@ const SearchForm: React.FC<EntireTypes> = ({ filteredPayments, setFilteredPaymen
   }
 
   return (
-    <StyledSearchForm>
+    <StyledForm>
       <div>기간</div>
       <div>
         <input type="date" ref={startDateRef} />
@@ -59,7 +59,7 @@ const SearchForm: React.FC<EntireTypes> = ({ filteredPayments, setFilteredPaymen
         <button onClick={handleSearchByName}>검색</button>
         <button onClick={resetHandler}>초기화</button>
       </div>
-    </StyledSearchForm>
+    </StyledForm>
   );
 }
 

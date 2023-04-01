@@ -8,7 +8,6 @@ export const StyledPaymentList = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   background-color: transparent;
-
   padding: 20px;
   margin: 5px;
 `;
