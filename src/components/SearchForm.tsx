@@ -18,49 +18,62 @@ const SearchForm: React.FC<EntireTypes> = ({ filteredPayments, setFilteredPaymen
 
   const [name, setName] = useState("");
 
-  const handleSearchByDateRange = (event: FormEvent) => {
+  const handleSearch = (event: FormEvent, startDate: string, endDate: string, name: string) => {
+    // 검색 누르면 필터링 됐다가 다시 전체 목록이 나오는 문제 발생. 
+    // preventDefault 없어서 새로고침 된 것이었음.
     event.preventDefault();
-    const enteredStartDate = startDateRef.current!.value;
-    const enteredEndDate = endDateRef.current!.value;
-    const filtered = filteredPayments.filter(
-      (payment) =>
-        payment.date >= enteredStartDate && payment.date <= enteredEndDate
-    );
 
-    setFilteredPayments(filtered);
+    let filtered: { id: string; name: string; amount: number; date: string }[] = [];
+    if (startDate && endDate) {
+      filtered = filteredPayments.filter(
+        (payment) =>
+          payment.date >= startDate && payment.date <= endDate
+      );
+    }
+
+    if (name) {
+      filtered = paymentInfo.filter((payment) => payment.name.includes(name));
+    }
+
+    if (filtered.length > 0) {
+      setFilteredPayments(filtered);
+    } else {
+      setFilteredPayments(paymentInfo);
+    }
+
+
   };
-
-  const handleSearchByName = (event: FormEvent) => {
-    event.preventDefault();
-    const filtered = paymentInfo.filter(payment =>
-      payment.name.includes(name)
-    );
-    setFilteredPayments(filtered);
-  };
-
   const resetHandler = () => {
     setFilteredPayments(paymentInfo);
-  }
+    setName("");
+    startDateRef.current!.value = "";
+    endDateRef.current!.value = "";
+
+
+  };
 
   return (
-    <StyledForm>
+    <StyledForm onSubmit={(event) => handleSearch(event, startDateRef.current!.value, endDateRef.current!.value, name)}>
       <div>기간</div>
       <div>
         <input type="date" ref={startDateRef} />
         <input type="date" ref={endDateRef} />
       </div>
       <div>
-        <button onClick={handleSearchByDateRange}>검색</button>
-        <button onClick={resetHandler}>초기화</button>
       </div>
       <div>결제 내역</div>
-      <input type="text" value={name} onChange={e => setName(e.target.value)} />
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <div>
-        <button onClick={handleSearchByName}>검색</button>
+        <button>검색</button>
         <button onClick={resetHandler}>초기화</button>
       </div>
     </StyledForm>
   );
+
 }
 
 export default SearchForm;

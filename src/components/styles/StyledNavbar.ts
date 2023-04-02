@@ -5,14 +5,14 @@ export const StyledNavbar = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 46%;
+  width: 800px;
   /* height: 5%; */
   border: 1px solid black;
   border-radius: 10px;
   background-color: transparent;
   /* padding: 20px;
   margin: 5px; */
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   padding: 1rem;
 `
 

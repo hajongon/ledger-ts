@@ -1,8 +1,7 @@
-import Container from "./Container";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
+import MainContainer from "./MainContainer";
+import DeleteModal from "./DeleteModal";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import EntireList from "./SearchList";
 import ListContainer from "./ListContainer";
 import Navbar from "./Navbar";
 import About from "./About";
@@ -26,18 +25,61 @@ const App = () => {
     }
   }, [setPaymentInfo]);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteModalCheckboxChecked, setIsDeleteModalCheckboxChecked] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState("");
 
+  const deleteItem = (id: string) => {
+
+    if (isDeleteModalCheckboxChecked) {
+      const filtered = paymentInfo.filter((payment) => payment.id !== id);
+      setPaymentInfo(filtered);
+      setItemToDelete(id);
+      localStorage.setItem("paymentInfo", JSON.stringify(filtered));
+      setIsDeleteModalOpen(false);
+    } else {
+      setItemToDelete(id);
+      const item = paymentInfo.find((item) => item.id === id);
+      if (item) {
+        setIsDeleteModalOpen(true);
+      }
+    }
+  };
+
+  const deleteConfirmed = () => {
+    const filtered = paymentInfo.filter((item) => item.id !== itemToDelete);
+    setPaymentInfo(filtered);
+    localStorage.setItem("paymentInfo", JSON.stringify(filtered));
+    setIsDeleteModalOpen(false);
+    setItemToDelete("");
+  };
+
+  const deleteCancelled = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const checkboxChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsDeleteModalCheckboxChecked(event.target.checked);
+  };
 
   return (
     <BrowserRouter>
       <div className="app">
         <Navbar />
         <Routes>
-
-          <Route path="/" element={<Container paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />} />
-          <Route path="/list" element={<ListContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />} />
+          <Route path="/" element={<MainContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} deleteItem={deleteItem} />} />
+          <Route path="/list" element={<ListContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} deleteItem={deleteItem} />} />
           <Route path="/about" element={<About />} />
         </Routes>
+        {isDeleteModalOpen && (
+          <DeleteModal
+            deleteConfirmed={deleteConfirmed}
+            deleteCancelled={deleteCancelled}
+            isDeleteModalCheckboxChecked={isDeleteModalCheckboxChecked}
+            setIsDeleteModalOpen={setIsDeleteModalOpen}
+            checkboxChanged={checkboxChanged}
+          />
+        )}
       </div>
     </BrowserRouter>
   );

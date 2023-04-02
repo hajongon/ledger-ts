@@ -3,10 +3,10 @@ import { StyledPaymentList } from "./styles/StyledPaymentList";
 import ListTable from "./ListTable";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
 
-const PaymentList: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
+const PaymentList: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo, deleteItem }) => {
   return (
     <StyledPaymentList>
-      <ListTable paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo}></ListTable>
+      <ListTable paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} deleteItem={deleteItem}></ListTable>
     </StyledPaymentList>
   );
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledPaymentList = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 600px;
   height: 80%;
   border: 1px solid black;
   border-radius: 10px;

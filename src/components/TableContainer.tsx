@@ -1,4 +1,6 @@
-
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faRotateLeft, faRotate } from "@fortawesome/free-solid-svg-icons";
 import {
   TableHeader,
   TableBody,
@@ -9,23 +11,37 @@ import {
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
 import { StyledTableContainer } from "./styles/StyledTableContainer";
 
-const TableContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
+const TableContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo, deleteItem }) => {
+
+  const [deletedItems, setDeletedItems] = useState<{ id: string, name: string, amount: number, date: string }[]>([]);
 
   const paymentDeleteHandler = (id: string) => {
-    const filtered = paymentInfo.filter(el => el.id !== id);
-    setPaymentInfo(filtered);
-    localStorage.setItem("paymentInfo", JSON.stringify(filtered));
+    const deletedItem = paymentInfo.find(el => el.id === id);
+    if (deletedItem) {
+      const filtered = paymentInfo.filter(el => el.id !== id);
+      setPaymentInfo(filtered);
+      setDeletedItems(prevItems => [...prevItems, deletedItem]);
+      localStorage.setItem("paymentInfo", JSON.stringify(filtered));
+    }
   }
 
-
+  const undoHandler = () => {
+    if (deletedItems.length > 0) {
+      const lastDeletedItem = deletedItems[deletedItems.length - 1];
+      setDeletedItems(prevItems => prevItems.slice(0, prevItems.length - 1));
+      setPaymentInfo(prevItems => [...prevItems, lastDeletedItem]);
+      localStorage.setItem("paymentInfo", JSON.stringify([...paymentInfo, lastDeletedItem]));
+    }
+  }
 
   return (
     <StyledTableContainer>
       <TableHeader>
         <TableR>
-          <TableH>결제 날짜</TableH>
+          <TableH className="pay-date" >결제 날짜</TableH>
           <TableH>결제 내역</TableH>
           <TableH>결제 금액</TableH>
+          <TableH className="delete-button"></TableH>
         </TableR>
       </TableHeader>
       <TableBody>
@@ -34,15 +50,27 @@ const TableContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInf
           paymentInfo.filter(el => el.id !== '1').map(el => {
             return (
               <TableR key={el.id}>
-                <TableD>{el.date}</TableD>
+                <TableD className="pay-date">{el.date}</TableD>
                 <TableD>{el.name}</TableD>
                 <TableD>{el.amount}</TableD>
-                <TableD>
-
-
-                  <button onClick={() => paymentDeleteHandler(el.id)}>delete</button>
-
-
+                <TableD className="delete-button">
+                  <button onClick={() => {
+                    deleteItem(el.id)
+                  }}><FontAwesomeIcon icon={faTrashCan} /></button>
+                </TableD>
+              </TableR>
+            )
+          })
+        }
+        {
+          deletedItems.map(el => {
+            return (
+              <TableR key={el.id}>
+                <TableD className="pay-date">{el.date}</TableD>
+                <TableD>{el.name}</TableD>
+                <TableD>{el.amount}</TableD>
+                <TableD className="delete-button">
+                  <button onClick={undoHandler}><FontAwesomeIcon icon={faRotateLeft} /></button>
                 </TableD>
               </TableR>
             )

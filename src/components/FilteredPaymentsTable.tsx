@@ -11,12 +11,6 @@ import { StyledTableContainer } from "./styles/StyledTableContainer";
 
 const FilteredPaymentsTable: React.FC<FilteredTypes> = ({ filteredPayments, setFilteredPayments }) => {
 
-  const paymentDeleteHandler = (id: string) => {
-    const filtered = filteredPayments.filter(el => el.id !== id);
-    setFilteredPayments(filtered);
-    localStorage.setItem("paymentInfo", JSON.stringify(filtered));
-  }
-
   const isListPage = useLocation().pathname === "/list";
 
   return (
@@ -42,6 +36,17 @@ const FilteredPaymentsTable: React.FC<FilteredTypes> = ({ filteredPayments, setF
           })
         }
       </TableBody>
+
+      <TableR>
+        <TableH>총 금액</TableH>
+        <TableH></TableH>
+        <TableH>{filteredPayments.reduce((acc, cur) => {
+          // 객체인데 바로 더하려고 했음. 바보 ㅎ
+          // acc = acc + cur (X)
+          acc = acc + cur.amount;
+          return acc;
+        }, 0)}</TableH>
+      </TableR>
     </StyledTableContainer>
   );
 }

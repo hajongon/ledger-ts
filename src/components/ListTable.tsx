@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
 import TableContainer from "./TableContainer";
 
-const ListTable: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
+const ListTable: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo, deleteItem }) => {
 
   return (
-    <TableContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} />
+    <TableContainer paymentInfo={paymentInfo} setPaymentInfo={setPaymentInfo} deleteItem={deleteItem} />
   );
 };
 

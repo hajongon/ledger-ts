@@ -7,6 +7,7 @@ import SearchList from "./SearchList";
 import SearchForm from "./SearchForm";
 
 const ListContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
+
   const [filteredPayments, setFilteredPayments] = useState<
     FilteredTypes["filteredPayments"]
   >([]);
@@ -15,6 +16,7 @@ const ListContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo
     setFilteredPayments(paymentInfo);
   }, [paymentInfo]);
 
+  console.log(filteredPayments)
   return (
     <StyledContainer>
       <SearchForm
