@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return <StyledNavbar>
-    <StyledNavItem onClick={() => navigate('/')}>main</StyledNavItem>
+    <StyledNavItem onClick={() => navigate('/')}>input</StyledNavItem>
     <StyledNavItem onClick={() => navigate('/list')}>list</StyledNavItem>
     <StyledNavItem onClick={() => navigate('/about')}>about</StyledNavItem>
   </StyledNavbar>

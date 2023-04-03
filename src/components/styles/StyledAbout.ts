@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledAbout = styled.div`
-  width: 97%;
+  width: 834px;
   height: 89%;
   display: flex;
   flex-direction: row;

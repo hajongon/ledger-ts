@@ -1,13 +1,20 @@
 import styled from "styled-components";
 
-const ModalBackground = styled.div`
+const ModalBackground =
+  styled.div <
+  { isDeleteModalOpen: boolean } >
+  `
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); /* 변경된 배경 색상 */
+  background-color: rgba(103, 103, 103, 0.6); /* 변경된 배경 색상 */
   position: fixed;
   top: 0px;
   left: 0px;
   z-index: 0; /* 변경된 z-index 값 */
+
+  opacity: ${({ isDeleteModalOpen }) => (isDeleteModalOpen ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
+  display: ${({ isDeleteModalOpen }) => (isDeleteModalOpen ? "block" : "none")};
 `;
 
 const ModalContainer = styled.div`
@@ -42,27 +49,6 @@ const ModalOverlay = styled.div`
   z-index: 999;
 `;
 
-const ModalWrapper = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  max-width: 95%;
-  padding: 2rem;
-  border-radius: 4px;
-  background: white;
-  z-index: 1000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-`;
-
-const ModalHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-`;
-
 const ModalTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: bold;
@@ -74,17 +60,11 @@ const ModalContent = styled.div`
   span {
     margin-left: 0.3rem;
   }
-  
-`;
-
-const ModalFooter = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 
 const ModalButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 20px;
 `;
 
@@ -105,24 +85,55 @@ const ModalButton = styled.button`
 `;
 
 type DeleteModalTypes = {
-  deleteConfirmed: () => void;
-  deleteCancelled: () => void;
-  isDeleteModalCheckboxChecked: boolean;
-  setIsDeleteModalOpen: React.Dispatch<
-    React.SetStateAction<boolean>
-  >,
-  checkboxChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  deleteConfirmed: () => void,
+  deleteCancelled: () => void,
+  isDeleteModalCheckboxChecked: boolean,
+  isDeleteModalOpen: boolean,
+  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  checkboxChanged: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  itemToDelete: string,
+  paymentInfo: { id: string, name: string, amount: number, date: string }[],
+};
 
-const DeleteModal: React.FC<DeleteModalTypes> = ({ deleteConfirmed, deleteCancelled, isDeleteModalCheckboxChecked, setIsDeleteModalOpen, checkboxChanged }) => {
+const DeleteModal: React.FC<DeleteModalTypes> = ({
+  deleteConfirmed,
+  deleteCancelled,
+  isDeleteModalCheckboxChecked,
+  isDeleteModalOpen,
+  setIsDeleteModalOpen,
+  checkboxChanged,
+  itemToDelete,
+  paymentInfo,
+}) => {
+  const handleBackClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsDeleteModalOpen(false);
+    // 이벤트 버블링 막기
+    e.stopPropagation();
+  };
+
   return (
     <>
       <ModalContainer>
         <ModalContent>
-          <ModalTitle>항목을 삭제하시겠습니까?</ModalTitle>
+          <ModalTitle>다음 항목을 삭제하시겠습니까?</ModalTitle>
+          <p>
+            결제 내역: {paymentInfo.find((el) => el.id === itemToDelete)?.name}
+          </p>
+          <p>
+            결제 날짜: {paymentInfo.find((el) => el.id === itemToDelete)?.date}
+          </p>
+          <p>
+            결제 금액:{" "}
+            {paymentInfo.find((el) => el.id === itemToDelete)?.amount}원
+          </p>
+
           <p>삭제한 항목은 복구할 수 없습니다.</p>
           <label>
-            <input type="checkbox" checked={isDeleteModalCheckboxChecked} onChange={checkboxChanged} />
+            <input
+              type="checkbox"
+              checked={isDeleteModalCheckboxChecked}
+              onChange={checkboxChanged}
+            />
             <span>다음부터 이 메시지를 표시하지 않음</span>
           </label>
           <ModalButtonContainer>
@@ -132,9 +143,11 @@ const DeleteModal: React.FC<DeleteModalTypes> = ({ deleteConfirmed, deleteCancel
         </ModalContent>
       </ModalContainer>
       {/* Modal 전체 요소 밖으로 빼주니까 딱 원하는대로 됨 */}
-      <ModalBackground onClick={() => setIsDeleteModalOpen(false)}></ModalBackground>
+      <ModalBackground
+        onClick={handleBackClick}
+        isDeleteModalOpen={isDeleteModalOpen}
+      ></ModalBackground>
     </>
-
   );
 };
 

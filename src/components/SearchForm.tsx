@@ -1,5 +1,6 @@
 import { StyledForm } from "./styles/StyledForm";
 import React, { FormEvent, useState, useRef } from "react";
+import { StyledInputContainer, StyledSubmitButton, PaymentInput, ButtonList, SearchButton, InputLabel, SearchInputSect } from "./styles/StyledInputContainer";
 
 // 여기서는 네개를 받기 때문에 타입 정의 새로 해야 함
 type EntireTypes = {
@@ -54,23 +55,18 @@ const SearchForm: React.FC<EntireTypes> = ({ filteredPayments, setFilteredPaymen
 
   return (
     <StyledForm onSubmit={(event) => handleSearch(event, startDateRef.current!.value, endDateRef.current!.value, name)}>
-      <div>기간</div>
-      <div>
-        <input type="date" ref={startDateRef} />
-        <input type="date" ref={endDateRef} />
-      </div>
-      <div>
-      </div>
-      <div>결제 내역</div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <div>
-        <button>검색</button>
-        <button onClick={resetHandler}>초기화</button>
-      </div>
+      <SearchInputSect>
+        <InputLabel className="date-search-label">기간</InputLabel>
+        <PaymentInput type="date" ref={startDateRef}></PaymentInput>
+        <PaymentInput type="date" ref={endDateRef}></PaymentInput>
+
+        <InputLabel className="name-search-label">결제 내역</InputLabel>
+        <PaymentInput type="text" value={name} onChange={(e) => setName(e.target.value)}></PaymentInput>
+        <ButtonList>
+          <SearchButton>검색</SearchButton>
+          <SearchButton onClick={resetHandler}>초기화</SearchButton>
+        </ButtonList>
+      </SearchInputSect>
     </StyledForm>
   );
 
