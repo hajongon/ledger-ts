@@ -1,5 +1,6 @@
 import styled from "styled-components";
-
+import { useSelector, useDispatch } from "react-redux";
+import PaymentInfoTypes from "./types/PaymentInfoTypes";
 const ModalBackground =
   styled.div <
   { isDeleteModalOpen: boolean } >
@@ -92,7 +93,6 @@ type DeleteModalTypes = {
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
   checkboxChanged: (event: React.ChangeEvent<HTMLInputElement>) => void,
   itemToDelete: string,
-  paymentInfo: { id: string, name: string, amount: number, date: string }[],
 };
 
 const DeleteModal: React.FC<DeleteModalTypes> = ({
@@ -103,8 +103,13 @@ const DeleteModal: React.FC<DeleteModalTypes> = ({
   setIsDeleteModalOpen,
   checkboxChanged,
   itemToDelete,
-  paymentInfo,
 }) => {
+  // slice 가져오기
+  const paymentInfo = useSelector(
+    (state: PaymentInfoTypes) => state.paymentInfo
+  );
+  // dispatch 정의
+  const dispatch = useDispatch();
   const handleBackClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDeleteModalOpen(false);
     // 이벤트 버블링 막기

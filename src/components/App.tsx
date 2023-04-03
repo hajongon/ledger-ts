@@ -5,33 +5,25 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ListContainer from "./ListContainer";
 import Navbar from "./Navbar";
 import About from "./About";
-import paymentInfoSlice from "./reducers/paymentInfoSlice";
 
 // reduxtoolkit
 
-import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
-
-// const store = configureStore({
-//   reducer: {
-//     paymentInfo: paymentInfoSlice,
-//   },
-// });
+import { useSelector, useDispatch } from "react-redux";
+import { setPaymentInfo } from "./reducers/paymentInfoSlice";
+import PaymentInfoTypes from "./types/PaymentInfoTypes";
 
 const App = () => {
-  const [paymentInfo, setPaymentInfo] = useState([
-    {
-      id: "1",
-      name: "",
-      amount: 0,
-      date: "",
-    },
-  ]);
+  // slice 가져오기
+  const paymentInfo = useSelector(
+    (state: PaymentInfoTypes) => state.paymentInfo
+  );
+  // dispatch 정의
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const data = localStorage.getItem("paymentInfo");
     if (data) {
-      setPaymentInfo(JSON.parse(data));
+      dispatch(setPaymentInfo(JSON.parse(data)));
     }
   }, [setPaymentInfo]);
 
@@ -43,7 +35,7 @@ const App = () => {
   const deleteItem = (id: string) => {
     if (isDeleteModalCheckboxChecked) {
       const filtered = paymentInfo.filter((payment) => payment.id !== id);
-      setPaymentInfo(filtered);
+      dispatch(setPaymentInfo(filtered));
       setItemToDelete(id);
       localStorage.setItem("paymentInfo", JSON.stringify(filtered));
       setIsDeleteModalOpen(false);
@@ -58,7 +50,7 @@ const App = () => {
 
   const deleteConfirmed = () => {
     const filtered = paymentInfo.filter((item) => item.id !== itemToDelete);
-    setPaymentInfo(filtered);
+    dispatch(setPaymentInfo(filtered));
     localStorage.setItem("paymentInfo", JSON.stringify(filtered));
     setIsDeleteModalOpen(false);
     setItemToDelete("");
@@ -78,26 +70,8 @@ const App = () => {
       <div className="app">
         <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MainContainer
-                paymentInfo={paymentInfo}
-                setPaymentInfo={setPaymentInfo}
-                deleteItem={deleteItem}
-              />
-            }
-          />
-          <Route
-            path="/list"
-            element={
-              <ListContainer
-                paymentInfo={paymentInfo}
-                setPaymentInfo={setPaymentInfo}
-                deleteItem={deleteItem}
-              />
-            }
-          />
+          <Route path="/" element={<MainContainer deleteItem={deleteItem} />} />
+          <Route path="/list" element={<ListContainer />} />
           <Route path="/about" element={<About />} />
         </Routes>
         {isDeleteModalOpen && (
@@ -109,7 +83,6 @@ const App = () => {
             setIsDeleteModalOpen={setIsDeleteModalOpen}
             checkboxChanged={checkboxChanged}
             itemToDelete={itemToDelete}
-            paymentInfo={paymentInfo}
           />
         )}
       </div>

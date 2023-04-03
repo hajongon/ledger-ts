@@ -1,16 +1,14 @@
 import { StyledPaymentList } from "./styles/StyledPaymentList";
 
-import FilteredTypes from "./types/FilteredTypes";
+// import FilteredTypes from "./types/FilteredTypes";
 import TableContainer from "./TableContainer";
 import FilteredPaymentsTable from "./FilteredPaymentsTable";
 
-const SearchList: React.FC<FilteredTypes> = ({ filteredPayments, setFilteredPayments }) => {
-
-
+const SearchList: React.FC = () => {
   return (
     <StyledPaymentList>
-      <FilteredPaymentsTable filteredPayments={filteredPayments} setFilteredPayments={setFilteredPayments} />
+      <FilteredPaymentsTable />
     </StyledPaymentList>
-  )
-}
+  );
+};
 export default SearchList;

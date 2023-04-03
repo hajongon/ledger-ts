@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faRotateLeft, faRotate } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import {
   TableHeader,
   TableBody,
@@ -9,36 +8,47 @@ import {
   TableD,
 } from "./styles/StyledTable";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
+import DeleteTypes from "./types/deleteTypes";
 import { StyledTableContainer } from "./styles/StyledTableContainer";
 
-const TableContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo, deleteItem }) => {
+import { useSelector } from "react-redux";
 
-  const [deletedItems, setDeletedItems] = useState<{ id: string, name: string, amount: number, date: string }[]>([]);
+const TableContainer: React.FC<DeleteTypes> = ({ deleteItem }) => {
+  // slice 가져오기
+  const paymentInfo = useSelector(
+    (state: PaymentInfoTypes) => state.paymentInfo
+  );
+  // dispatch 정의
+  // const dispatch = useDispatch();
 
-  const paymentDeleteHandler = (id: string) => {
-    const deletedItem = paymentInfo.find(el => el.id === id);
-    if (deletedItem) {
-      const filtered = paymentInfo.filter(el => el.id !== id);
-      setPaymentInfo(filtered);
-      setDeletedItems(prevItems => [...prevItems, deletedItem]);
-      localStorage.setItem("paymentInfo", JSON.stringify(filtered));
-    }
-  }
+  // const [deletedItems, setDeletedItems] = useState<{ id: string, name: string, amount: number, date: string }[]>([]);
 
-  const undoHandler = () => {
-    if (deletedItems.length > 0) {
-      const lastDeletedItem = deletedItems[deletedItems.length - 1];
-      setDeletedItems(prevItems => prevItems.slice(0, prevItems.length - 1));
-      setPaymentInfo(prevItems => [...prevItems, lastDeletedItem]);
-      localStorage.setItem("paymentInfo", JSON.stringify([...paymentInfo, lastDeletedItem]));
-    }
-  }
+  // const paymentDeleteHandler = (id: string) => {
+  //   const deletedItem = paymentInfo.find(el => el.id === id);
+  //   if (deletedItem) {
+  //     const filtered = paymentInfo.filter(el => el.id !== id);
+  //     dispatch(setPaymentInfo(filtered));
+  //     setDeletedItems(prevItems => [...prevItems, deletedItem]);
+  //     localStorage.setItem("paymentInfo", JSON.stringify(filtered));
+  //   }
+  // }
+
+  // const undoHandler = () => {
+  //   if (deletedItems.length > 0) {
+  //     const lastDeletedItem = deletedItems[deletedItems.length - 1];
+  //     setDeletedItems(prevItems => prevItems.slice(0, prevItems.length - 1));
+  //     setPaymentInfo(prevItems => [...prevItems, lastDeletedItem]);
+  //     localStorage.setItem("paymentInfo", JSON.stringify([...paymentInfo, lastDeletedItem]));
+  //   }
+  // }
+
+  console.log(paymentInfo.filter((el) => el.id !== "1"));
 
   return (
     <StyledTableContainer>
       <TableHeader>
         <TableR>
-          <TableH className="pay-date" >결제 날짜</TableH>
+          <TableH className="pay-date">결제 날짜</TableH>
           <TableH>결제 내역</TableH>
           <TableH>결제 금액</TableH>
           <TableH className="delete-button"></TableH>
@@ -47,22 +57,28 @@ const TableContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInf
       <TableBody>
         {
           // initial value를 가리기 위해 filtering
-          paymentInfo.filter(el => el.id !== '1').map(el => {
-            return (
-              <TableR key={el.id}>
-                <TableD className="pay-date">{el.date}</TableD>
-                <TableD>{el.name}</TableD>
-                <TableD>{el.amount}</TableD>
-                <TableD className="delete-button">
-                  <button onClick={() => {
-                    deleteItem(el.id)
-                  }}><FontAwesomeIcon icon={faTrashCan} /></button>
-                </TableD>
-              </TableR>
-            )
-          })
+          paymentInfo
+            .filter((el) => el.id !== "1")
+            .map((el) => {
+              return (
+                <TableR key={el.id}>
+                  <TableD className="pay-date">{el.date}</TableD>
+                  <TableD>{el.name}</TableD>
+                  <TableD>{el.amount}</TableD>
+                  <TableD className="delete-button">
+                    <button
+                      onClick={() => {
+                        deleteItem(el.id);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} />
+                    </button>
+                  </TableD>
+                </TableR>
+              );
+            })
         }
-        {
+        {/* {
           deletedItems.map(el => {
             return (
               <TableR key={el.id}>
@@ -75,9 +91,9 @@ const TableContainer: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInf
               </TableR>
             )
           })
-        }
+        } */}
       </TableBody>
     </StyledTableContainer>
   );
-}
+};
 export default TableContainer;

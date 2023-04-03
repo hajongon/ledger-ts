@@ -6,8 +6,20 @@ import { StyledInputContainer, StyledSubmitButton } from "./styles/StyledInputCo
 import { StyledForm } from "./styles/StyledForm";
 import { PaymentInput } from "./styles/StyledInputContainer";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
+import DeleteTypes from "./types/deleteTypes";
 
-const PaymentForm: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { setPaymentInfo } from "./reducers/paymentInfoSlice";
+
+const PaymentForm: React.FC<DeleteTypes> = () => {
+
+  // slice 가져오기
+  const paymentInfo = useSelector(
+    (state: PaymentInfoTypes) => state.paymentInfo
+  );
+  // dispatch 정의
+  const dispatch = useDispatch();
+
   // const [selectedDate, setSelectedDate] = useState("");
   const [id, setId] = useState<string>(uuidv4());
 
@@ -26,7 +38,7 @@ const PaymentForm: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }
     }
     const copied = [...paymentInfo];
     copied.unshift({ id, name: enteredName, amount: +enteredAmount, date: selectedDate });
-    setPaymentInfo(copied);
+    dispatch(setPaymentInfo(copied));
     // uuid 초기화
     setId(uuidv4());
     localStorage.setItem("paymentInfo", JSON.stringify(copied));
@@ -54,17 +66,17 @@ const PaymentForm: React.FC<PaymentInfoTypes> = ({ paymentInfo, setPaymentInfo }
 };
 
 // 런타임에서의 타입 검증이 필요한 듯?
-PaymentForm.propTypes = {
-  paymentInfo: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-      date: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  setPaymentInfo: PropTypes.func.isRequired,
-};
+// PaymentForm.propTypes = {
+//   paymentInfo: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       amount: PropTypes.number.isRequired,
+//       date: PropTypes.string.isRequired,
+//     }).isRequired,
+//   ).isRequired,
+//   setPaymentInfo: PropTypes.func.isRequired,
+// };
 
 
 export default PaymentForm;
