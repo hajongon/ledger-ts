@@ -1,7 +1,7 @@
 import { StyledPaymentList } from "./styles/StyledPaymentList";
 
 // import FilteredTypes from "./types/FilteredTypes";
-import TableContainer from "./TableContainer";
+import TableContainer from "./PaymentTable";
 import FilteredPaymentsTable from "./FilteredPaymentsTable";
 
 const SearchList: React.FC = () => {

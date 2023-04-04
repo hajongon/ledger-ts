@@ -1,21 +1,38 @@
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import styled from "styled-components";
+
+import { FormEvent, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 import { StyledInputContainer, StyledSubmitButton } from "./styles/StyledInputContainer";
 import { StyledForm } from "./styles/StyledForm";
 import { PaymentInput } from "./styles/StyledInputContainer";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
-import DeleteTypes from "./types/DeleteTypes";
+import FixedCostsTypes from "./types/FixedCostsTypes";
+import DeleteFixedCost from "./types/DeleteFixedCost";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setPaymentInfo } from "./reducers/paymentInfoSlice";
+import { setFixedCosts } from "./reducers/fixedCostsSlice";
 
-const PaymentForm: React.FC<DeleteTypes> = () => {
+// components는 대문자로 시작
+const RowAlignDiv = styled.div`
+  display: flex;
+  margin-left: 2rem;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+const DateInput = styled.input`
+  width: 4.2em;
+  margin: 0.5rem;
+`;
+
+const FixedCostsForm: React.FC<DeleteFixedCost> = () => {
 
   // slice 가져오기
-  const paymentInfo = useSelector(
-    (state: PaymentInfoTypes) => state.paymentInfo
+  const fixedCosts = useSelector(
+    (state: FixedCostsTypes) => state.fixedCosts
   );
   // dispatch 정의
   const dispatch = useDispatch();
@@ -27,7 +44,7 @@ const PaymentForm: React.FC<DeleteTypes> = () => {
   const amountRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleCostSubmit = (event: FormEvent) => {
     event.preventDefault();
     let enteredName = nameRef.current!.value;
     let enteredAmount = amountRef.current!.value;
@@ -36,14 +53,13 @@ const PaymentForm: React.FC<DeleteTypes> = () => {
       alert('지출 관련 내용을 정확히 입력하세요.');
       return;
     }
-    const newPayment = { id: uuidv4(), name: enteredName, amount: +enteredAmount, date: selectedDate };
+    const newFixedCosts = { id: uuidv4(), name: enteredName, amount: +enteredAmount, date: selectedDate };
     // 날짜 순 정렬
-    const sortedPaymentInfo = [...paymentInfo, newPayment].sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any));
-    dispatch(setPaymentInfo(sortedPaymentInfo));
-    localStorage.setItem("paymentInfo", JSON.stringify(sortedPaymentInfo));
+    const sortedFixedCosts = [...fixedCosts, newFixedCosts].sort((a, b) => (parseInt(a.date) - parseInt(b.date)));
+    dispatch(setFixedCosts(sortedFixedCosts));
+    localStorage.setItem("fixedCosts", JSON.stringify(sortedFixedCosts));
     // uuid 초기화
     setId(uuidv4());
-
     // 인풋 초기화
     nameRef.current!.value = "";
     amountRef.current!.value = "";
@@ -51,7 +67,7 @@ const PaymentForm: React.FC<DeleteTypes> = () => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleCostSubmit}>
       <StyledInputContainer>
         <PaymentInput type="text" placeholder="결제 내역" ref={nameRef} />
         <PaymentInput
@@ -59,25 +75,11 @@ const PaymentForm: React.FC<DeleteTypes> = () => {
           placeholder="결제 금액"
           ref={amountRef}
         />
-        <PaymentInput type="date" placeholder="결제 날짜" ref={dateRef} />
-        <StyledSubmitButton onClick={handleSubmit}>submit</StyledSubmitButton>
+        <RowAlignDiv>매월 <DateInput type="text" ref={dateRef} /> 일 결제</RowAlignDiv>
+        <StyledSubmitButton onClick={handleCostSubmit}>등록</StyledSubmitButton>
       </StyledInputContainer>
     </StyledForm>
   );
 };
 
-// 런타임에서의 타입 검증이 필요한 듯?
-// PaymentForm.propTypes = {
-//   paymentInfo: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       amount: PropTypes.number.isRequired,
-//       date: PropTypes.string.isRequired,
-//     }).isRequired,
-//   ).isRequired,
-//   setPaymentInfo: PropTypes.func.isRequired,
-// };
-
-
-export default PaymentForm;
+export default FixedCostsForm;

@@ -23,3 +23,18 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+input {
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 3px;
+    transition: transform 0.2s ease-in-out;
+}
+
+input:hover {
+    transform: scale(1.05);
+}
+
+input:focus {
+    outline: 2px solid lightgray;
+}

@@ -11,19 +11,28 @@ import About from "./About";
 import { useSelector, useDispatch } from "react-redux";
 import { setPaymentInfo } from "./reducers/paymentInfoSlice";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
+import FixedCostsTypes from "./types/FixedCostsTypes";
+import { setFixedCosts } from "./reducers/fixedCostsSlice";
+import FixedCostsContainer from "./FixedCostsContainer";
 
 const App = () => {
   // slice 가져오기
   const paymentInfo = useSelector(
     (state: PaymentInfoTypes) => state.paymentInfo
   );
+  const fixedCosts = useSelector((state: FixedCostsTypes) => state.fixedCosts);
+
   // dispatch 정의
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const data = localStorage.getItem("paymentInfo");
-    if (data) {
-      dispatch(setPaymentInfo(JSON.parse(data)));
+    const data1 = localStorage.getItem("paymentInfo");
+    if (data1) {
+      dispatch(setPaymentInfo(JSON.parse(data1)));
+    }
+    const data2 = localStorage.getItem("fixedCosts");
+    if (data2) {
+      dispatch(setPaymentInfo(JSON.parse(data2)));
     }
   }, [setPaymentInfo]);
 
@@ -46,6 +55,14 @@ const App = () => {
         setIsDeleteModalOpen(true);
       }
     }
+  };
+
+  const deleteFixedCost = (id: string) => {
+    const filtered = fixedCosts.filter((cost) => cost.id !== id);
+    dispatch(setFixedCosts(filtered));
+    setItemToDelete(id);
+    localStorage.setItem("fixedCosts", JSON.stringify(filtered));
+    setIsDeleteModalOpen(false);
   };
 
   const deleteConfirmed = () => {
@@ -72,6 +89,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainContainer deleteItem={deleteItem} />} />
           <Route path="/list" element={<ListContainer />} />
+          <Route
+            path="/fixed"
+            element={<FixedCostsContainer deleteFixedCost={deleteFixedCost} />}
+          />
           <Route path="/about" element={<About />} />
         </Routes>
         {isDeleteModalOpen && (

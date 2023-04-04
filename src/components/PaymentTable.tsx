@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
 import {
   TableHeader,
   TableBody,
@@ -8,12 +9,18 @@ import {
   TableD,
 } from "./styles/StyledTable";
 import PaymentInfoTypes from "./types/PaymentInfoTypes";
-import DeleteTypes from "./types/deleteTypes";
+import DeleteTypes from "./types/DeleteTypes";
 import { StyledTableContainer } from "./styles/StyledTableContainer";
 
 import { useSelector } from "react-redux";
 
-const TableContainer: React.FC<DeleteTypes> = ({ deleteItem }) => {
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+  :hover {
+    color: red;
+  }
+`;
+
+const PaymentTable: React.FC<DeleteTypes> = ({ deleteItem }) => {
   // slice 가져오기
   const paymentInfo = useSelector(
     (state: PaymentInfoTypes) => state.paymentInfo
@@ -71,7 +78,7 @@ const TableContainer: React.FC<DeleteTypes> = ({ deleteItem }) => {
                         deleteItem(el.id);
                       }}
                     >
-                      <FontAwesomeIcon icon={faTrashCan} />
+                      <StyledFontAwesomeIcon icon={faXmark} />
                     </button>
                   </TableD>
                 </TableR>
@@ -96,4 +103,4 @@ const TableContainer: React.FC<DeleteTypes> = ({ deleteItem }) => {
     </StyledTableContainer>
   );
 };
-export default TableContainer;
+export default PaymentTable;

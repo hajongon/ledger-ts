@@ -5,6 +5,7 @@ export const StyledInputContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
   width: 100%;
 `;
 
@@ -38,4 +39,4 @@ export const InputLabel = styled.div`
 
 export const SearchInputSect = styled.div`
   margin-left: 10px;
-`
+`;

@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { StyledPaymentList } from "./styles/StyledPaymentList";
-import ListTable from "./ListTable";
-import DeleteTypes from "./types/deleteTypes";
+import PaymentTable from "./PaymentTable";
+import DeleteTypes from "./types/DeleteTypes";
 
 const PaymentList: React.FC<DeleteTypes> = ({ deleteItem }) => {
   return (
     <StyledPaymentList>
-      <ListTable deleteItem={deleteItem}></ListTable>
+      <PaymentTable deleteItem={deleteItem}></PaymentTable>
     </StyledPaymentList>
   );
 };
