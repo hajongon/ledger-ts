@@ -8,8 +8,8 @@ import {
   TableR,
   TableD,
 } from "./styles/StyledTable";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
-import DeleteTypes from "./types/DeleteTypes";
+import PaymentInfoTypes from "../types/PaymentInfoTypes";
+import DeleteTypes from "../types/DeleteTypes";
 import { StyledTableContainer } from "./styles/StyledTableContainer";
 
 import { useSelector } from "react-redux";

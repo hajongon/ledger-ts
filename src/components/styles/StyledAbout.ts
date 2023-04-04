@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledAbout = styled.div`
   width: 834px;
-  height: 89%;
+  height: 642px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -10,5 +10,6 @@ export const StyledAbout = styled.div`
   box-sizing: border-box;
   border: 1px solid black;
   border-radius: 10px;
+  font-size: 1.5rem;
   padding: 1rem;
 `;

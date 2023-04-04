@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
+import PaymentInfoTypes from "../types/PaymentInfoTypes";
 const ModalBackground =
   styled.div <
   { isDeleteModalOpen: boolean } >
@@ -110,6 +110,7 @@ const DeleteModal: React.FC<DeleteModalTypes> = ({
   );
   // dispatch 정의
   const dispatch = useDispatch();
+
   const handleBackClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDeleteModalOpen(false);
     // 이벤트 버블링 막기

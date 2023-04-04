@@ -6,7 +6,7 @@ export const StyledForm = styled.form`
   width: 200px;
   height: 90%;
   max-width: 25%;
-  height: 80%;
+  height: 100%;
   border: 1px solid black;
   border-radius: 10px;
   background-color: transparent;

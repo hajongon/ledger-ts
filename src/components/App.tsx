@@ -9,10 +9,10 @@ import About from "./About";
 // reduxtoolkit
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPaymentInfo } from "./reducers/paymentInfoSlice";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
-import FixedCostsTypes from "./types/FixedCostsTypes";
-import { setFixedCosts } from "./reducers/fixedCostsSlice";
+import { setPaymentInfo } from "../reducers/paymentInfoSlice";
+import PaymentInfoTypes from "../types/PaymentInfoTypes";
+import FixedCostsTypes from "../types/FixedCostsTypes";
+import { setFixedCosts } from "../reducers/fixedCostsSlice";
 import FixedCostsContainer from "./FixedCostsContainer";
 
 const App = () => {
@@ -24,18 +24,6 @@ const App = () => {
 
   // dispatch 정의
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const data1 = localStorage.getItem("paymentInfo");
-    if (data1) {
-      dispatch(setPaymentInfo(JSON.parse(data1)));
-    }
-    const data2 = localStorage.getItem("fixedCosts");
-    if (data2) {
-      dispatch(setPaymentInfo(JSON.parse(data2)));
-    }
-  }, [setPaymentInfo]);
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleteModalCheckboxChecked, setIsDeleteModalCheckboxChecked] =
     useState(false);

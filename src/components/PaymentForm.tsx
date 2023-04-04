@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { StyledInputContainer, StyledSubmitButton } from "./styles/StyledInputContainer";
 import { StyledForm } from "./styles/StyledForm";
 import { PaymentInput } from "./styles/StyledInputContainer";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
-import DeleteTypes from "./types/DeleteTypes";
+import PaymentInfoTypes from "../types/PaymentInfoTypes";
+import DeleteTypes from "../types/DeleteTypes";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPaymentInfo } from "./reducers/paymentInfoSlice";
+import { setPaymentInfo } from "../reducers/paymentInfoSlice";
 
 const PaymentForm: React.FC<DeleteTypes> = () => {
 

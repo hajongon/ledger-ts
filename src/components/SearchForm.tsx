@@ -3,9 +3,9 @@ import React, { FormEvent, useState, useRef } from "react";
 import { PaymentInput, ButtonList, SearchButton, InputLabel, SearchInputSect } from "./styles/StyledInputContainer";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
-import FilteredTypes from "./types/FilteredTypes";
-import { setFiltered } from "./reducers/filteredSlice";
+import PaymentInfoTypes from "../types/PaymentInfoTypes";
+import FilteredTypes from "../types/FilteredTypes";
+import { setFiltered } from "../reducers/filteredSlice";
 
 // 여기서는 네개를 받기 때문에 타입 정의 새로 해야 함
 // type EntireTypes = {

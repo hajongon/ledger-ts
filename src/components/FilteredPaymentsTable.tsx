@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setFiltered } from "./reducers/filteredSlice";
+import { setFiltered } from "../reducers/filteredSlice";
 
 import { useEffect } from "react";
-import FilteredTypes from "./types/FilteredTypes";
-import PaymentInfoTypes from "./types/PaymentInfoTypes";
+import FilteredTypes from "../types/FilteredTypes";
+import PaymentInfoTypes from "../types/PaymentInfoTypes";
 import {
   TableHeader,
   TableBody,

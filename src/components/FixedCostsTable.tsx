@@ -8,9 +8,11 @@ import {
   TableH,
   TableR,
   TableD,
+  EntireFixedCost,
+  TableFooter,
 } from "./styles/StyledTable";
-import FixedCostsTypes from "./types/FixedCostsTypes";
-import DeleteFixedCost from "./types/DeleteFixedCost";
+import FixedCostsTypes from "../types/FixedCostsTypes";
+import DeleteFixedCost from "../types/DeleteFixedCost";
 import { StyledTableContainer } from "./styles/StyledTableContainer";
 
 import { useSelector } from "react-redux";
@@ -62,18 +64,19 @@ const FixedCostsTable: React.FC<DeleteFixedCost> = ({ deleteFixedCost }) => {
             })
         }
       </TableBody>
-      <TableR>
-        <TableH>총 금액</TableH>
-        <TableH></TableH>
-        <TableH>
-          {fixedCosts.reduce((acc, cur) => {
-            // 객체인데 바로 더하려고 했음. 바보 ㅎ
-            // acc = acc + cur (X)
-            acc = acc + cur.amount;
-            return acc;
-          }, 0)}
-        </TableH>
-      </TableR>
+      <TableFooter>
+        <EntireFixedCost>
+          <TableH>총 금액</TableH>
+          <TableH></TableH>
+          <TableH>
+            {fixedCosts.reduce((acc, cur) => {
+              acc = acc + cur.amount;
+              return acc;
+            }, 0)}
+          </TableH>
+          <TableH></TableH>
+        </EntireFixedCost>
+      </TableFooter>
     </StyledTableContainer>
   );
 };

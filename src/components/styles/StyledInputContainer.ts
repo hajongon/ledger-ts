@@ -38,5 +38,5 @@ export const InputLabel = styled.div`
 `;
 
 export const SearchInputSect = styled.div`
-  margin-left: 10px;
+  margin-left: 15px;
 `;

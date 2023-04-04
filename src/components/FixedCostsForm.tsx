@@ -6,12 +6,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { StyledInputContainer, StyledSubmitButton } from "./styles/StyledInputContainer";
 import { StyledForm } from "./styles/StyledForm";
 import { PaymentInput } from "./styles/StyledInputContainer";
-import FixedCostsTypes from "./types/FixedCostsTypes";
-import DeleteFixedCost from "./types/DeleteFixedCost";
+import FixedCostsTypes from "../types/FixedCostsTypes";
+import DeleteFixedCost from "../types/DeleteFixedCost";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setPaymentInfo } from "./reducers/paymentInfoSlice";
-import { setFixedCosts } from "./reducers/fixedCostsSlice";
+import { setPaymentInfo } from "../reducers/paymentInfoSlice";
+import { setFixedCosts } from "../reducers/fixedCostsSlice";
 
 // components는 대문자로 시작
 const RowAlignDiv = styled.div`
