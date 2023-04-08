@@ -29,7 +29,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "public/ledger-bear.d.ts"  ],
   "exclude": [
     "node_modules",
     "dist"

@@ -9,6 +9,8 @@ import common from "./webpack.common";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
+import HtmlWebpackPlugin from "html-webpack-plugin";
+
 const configuration: webpack.Configuration = {
   mode: "production",
   devtool: "cheap-module-source-map",
@@ -22,6 +24,13 @@ const configuration: webpack.Configuration = {
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+        },
       },
     ],
   },

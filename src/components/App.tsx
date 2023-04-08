@@ -6,8 +6,8 @@ import ListContainer from "./ListContainer";
 import Navbar from "./Navbar";
 import About from "./About";
 // 타입스크립트 이미지 파일 타입 검사
-import bearImage from "../../public/ledger-bear.png";
-import "../../public/ledger-bear.d.ts";
+import bearImage from "../../public/ledgerBear.png";
+import "../../public/ledgerBear.d.ts";
 
 import styled from "styled-components";
 
@@ -21,10 +21,9 @@ import { setFixedCosts } from "../reducers/fixedCostsSlice";
 import FixedCostsContainer from "./FixedCostsContainer";
 
 const Bear = styled.img`
-  position: absolute;
   z-index: -1;
-  top: 60px;
-  width: 500px;
+  width: 300px;
+  margin-top: -30px;
 `;
 
 const App = () => {
@@ -83,7 +82,10 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    // prod
+    <BrowserRouter basename="/wheredidyouspend">
+      {/* dev */}
+      {/* <BrowserRouter> */}
       <div className="app">
         <Bear src={bearImage} />
         <Navbar />

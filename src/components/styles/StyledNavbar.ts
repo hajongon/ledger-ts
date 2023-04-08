@@ -25,7 +25,7 @@ export const StyledNavItem =
   StyledNavItemProps >
   `
   /* margin: 2rem; */
-  margin: 0.3rem 0.5rem 0.3rem 1rem;
+  margin: 0rem 0.5rem 0rem 1rem;
   font-size: 1.1rem;
   transition: font-size ease-in-out 0.2s, color ease-in-out 0.2s;
 

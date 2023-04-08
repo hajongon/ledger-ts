@@ -13,7 +13,7 @@ export const TableH = styled.th`
   font-size: 1rem;
   padding: 5px;
   text-align: left;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid lightgray;
 `;
 
 export const TableR = styled.tr``;
