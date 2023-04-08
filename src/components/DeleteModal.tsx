@@ -109,7 +109,6 @@ const DeleteModal: React.FC<DeleteModalTypes> = ({
     (state: PaymentInfoTypes) => state.paymentInfo
   );
   // dispatch 정의
-  const dispatch = useDispatch();
 
   const handleBackClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDeleteModalOpen(false);

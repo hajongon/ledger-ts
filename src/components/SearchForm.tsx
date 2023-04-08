@@ -38,7 +38,6 @@ const SearchForm: React.FC = () => {
 
   const handleSearch = (event: FormEvent, startDate: string, endDate: string, name: string) => {
 
-    
     // 검색 누르면 필터링 됐다가 다시 전체 목록이 나오는 문제 발생. 
     // preventDefault 없어서 새로고침 된 것이었음.
     event.preventDefault();
@@ -57,7 +56,6 @@ const SearchForm: React.FC = () => {
     if (startDate && endDate) {
 
       // copy 만들어서 dispatch로 set해줘야 함<=-------- 요기부터 해라
-
 
       temp = paymentInfo.filter(
         (payment) =>

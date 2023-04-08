@@ -21,7 +21,7 @@ export const TableR = styled.tr``;
 export const TableD = styled.td`
   padding: 5px;
   font-size: 0.9rem;
-  width: 2rem;
+  width: 5rem;
 
   button {
     border: 0;

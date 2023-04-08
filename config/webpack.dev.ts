@@ -23,6 +23,13 @@ const configuration: webpack.Configuration = {
         use: ["style-loader", "css-loader"],
         exclude: /node_modules/,
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+        },
+      },
     ],
   },
   plugins: [new RefreshWebpackPlugin()],

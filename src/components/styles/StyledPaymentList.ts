@@ -10,4 +10,5 @@ export const StyledPaymentList = styled.div`
   background-color: transparent;
   padding: 20px;
   margin: 5px;
+  overflow-y: scroll;
 `;

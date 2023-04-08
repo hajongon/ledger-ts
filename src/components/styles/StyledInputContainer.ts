@@ -21,15 +21,29 @@ export const ButtonList = styled.div`
 `;
 
 export const StyledSubmitButton = styled.button`
-  width: 82%;
+  background-color: lightgray;
+  border: 1px solid black;
+  width: 86%;
+  color: black;
+  border-radius: 5px;
   height: 25px;
   margin-bottom: 10px;
+  :hover {
+    background-color: antiquewhite;
+  }
 `;
 
 export const SearchButton = styled.button`
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 5px;
   width: 60px;
   height: 25px;
   margin-bottom: 10px;
+  margin-right: 5px;
+  :hover {
+    background-color: antiquewhite;
+  }
 `;
 
 export const InputLabel = styled.div`

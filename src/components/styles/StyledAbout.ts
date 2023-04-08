@@ -4,7 +4,7 @@ export const StyledAbout = styled.div`
   width: 834px;
   height: 642px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -12,4 +12,7 @@ export const StyledAbout = styled.div`
   border-radius: 10px;
   font-size: 1.5rem;
   padding: 1rem;
+  > div {
+    margin-bottom: 10px;
+  }
 `;

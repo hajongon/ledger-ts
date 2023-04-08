@@ -9,7 +9,7 @@ export const StyledForm = styled.form`
   height: 100%;
   border: 1px solid black;
   border-radius: 10px;
-  background-color: transparent;
+  background-color: #efeae1;
   padding: 20px;
   margin: 5px;
 `;

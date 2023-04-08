@@ -1,10 +1,15 @@
 import MainContainer from "./MainContainer";
 import DeleteModal from "./DeleteModal";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ListContainer from "./ListContainer";
 import Navbar from "./Navbar";
 import About from "./About";
+// 타입스크립트 이미지 파일 타입 검사
+import bearImage from "../../public/ledger-bear.png";
+import "../../public/ledger-bear.d.ts";
+
+import styled from "styled-components";
 
 // reduxtoolkit
 
@@ -14,6 +19,13 @@ import PaymentInfoTypes from "../types/PaymentInfoTypes";
 import FixedCostsTypes from "../types/FixedCostsTypes";
 import { setFixedCosts } from "../reducers/fixedCostsSlice";
 import FixedCostsContainer from "./FixedCostsContainer";
+
+const Bear = styled.img`
+  position: absolute;
+  z-index: -1;
+  top: 60px;
+  width: 500px;
+`;
 
 const App = () => {
   // slice 가져오기
@@ -73,6 +85,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="app">
+        <Bear src={bearImage} />
         <Navbar />
         <Routes>
           <Route path="/" element={<MainContainer deleteItem={deleteItem} />} />

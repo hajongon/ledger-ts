@@ -4,7 +4,10 @@ import { StyledContainer } from "./styles/StyledContainer";
 const About = () => {
   return (
     <StyledContainer>
-      <StyledAbout>hajongon@gmail.com</StyledAbout>
+      <StyledAbout>
+        <div>어따썼니</div>
+        <div>hajongon@gmail.com</div>
+      </StyledAbout>
     </StyledContainer>
   );
 };
